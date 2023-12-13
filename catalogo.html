@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRAU OUTLETT</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        #catalog {
+            display: flex;
+            justify-content: space-around;
+            align-items: stretch;
+            flex-wrap: wrap;
+            padding: 1em;
+        }
+
+        .product {
+            width: 300px;
+            margin: 1em;
+            padding: 1em;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1em;
+        }
+
+        .product h2 {
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        .product p {
+            margin: 0;
+            text-align: center;
+        }
+
+        .details {
+            display: none;
+            padding: 1em;
+            background-color: #f4f4f4;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GRAU OUTLETT</h1>
+    </header>
+
+    <div id="catalog">
+        <!-- Produtos serão adicionados aqui dinamicamente usando JavaScript -->
+    </div>
+
+    <footer>
+        &copy; 2023 GRAU OUTLETT. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        const products = [
+            { name: 'Camisa Cruzeiro I 21/22 Torcedor Adidas Masculina', price: 299.99, size: 'M', width: '50cm', height: '70cm', image: 'https://a-static.mlcdn.com.br/450x450/camisa-adidas-cruzeiro-i-2021/futfanaticsoficial/90062-1544115/2d633dd805fba20eafcea60344a5aa09.jpeg'},
+            { name: 'Mizuno Prophecy', price: 1099.99, size: 'L', width: '48cm', height: '68cm', image: 'https://acdn.mitiendanube.com/stores/003/320/284/products/e847e330-0305-4ef5-895c-a964f99cc45f1-c92856d34eb884aa6616873627530992-1024-1024.png' },
+            { name: 'Tênis Oakley Modoc Low II Masculino - Off White', price: 629.99, size: '42', width: '10cm', height: '30cm', image: 'https://img.ws.mms.shopee.com.br/309f15736d0ba0f3098b288131d1e1ba' },
+            { name: 'Kit Real Madrid', price: 449.99, size: '41', width: '12cm', height: '32cm', image: 'https://images.tcdn.com.br/img/img_prod/694710/kit_infantil_real_madrid_2024_kit_i_completo_11703_1_a2ee707304926563052e9926fdcf11ff.jpg' },
+            { name: 'Milan - camisa milan retro 13/14 dourada.', price: 100.99, size: 'S', width: '45cm', height: '60cm', image: 'https://dcdn.mitiendanube.com/stores/002/931/442/products/41a7c9fa-a029-48d6-a55e-379392f9e0811-45bf0e09e6a5cb949916799701534233-1024-1024.jpeg' },
+        ];
+
+        function renderCatalog() {
+            const catalogElement = document.getElementById('catalog');
+
+            products.forEach((product, index) => {
+                const productElement = document.createElement('div');
+                productElement.classList.add('product');
+                productElement.addEventListener('click', () => showDetails(index));
+
+                const imageElement = document.createElement('img');
+                imageElement.src = product.image;
+                imageElement.alt = product.name;
+
+                const nameElement = document.createElement('h2');
+                nameElement.textContent = product.name;
+
+                const priceElement = document.createElement('p');
+                priceElement.textContent = `R$ ${product.price.toFixed(2)}`;
+
+                const detailsElement = document.createElement('div');
+                detailsElement.classList.add('details');
+                detailsElement.innerHTML = `
+                    <p>Detalhes:</p>
+                    <ul>
+                        <li>Tamanho: ${product.size}</li>
+                        <li>Dimensões: ${product.width} x ${product.height}</li>
+                    </ul>
+                `;
+
+                productElement.appendChild(imageElement);
+                productElement.appendChild(nameElement);
+                productElement.appendChild(priceElement);
+                productElement.appendChild(detailsElement);
+
+                catalogElement.appendChild(productElement);
+            });
+        }
+
+        function showDetails(index) {
+            const detailsElements = document.querySelectorAll('.details');
+            detailsElements.forEach((element, i) => {
+                if (i === index) {
+                    element.style.display = element.style.display === 'none' ? 'block' : 'none';
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+        }
+
+        window.onload = renderCatalog;
+    </script>
+</body>
+</html>

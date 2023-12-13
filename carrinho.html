@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <style>
+        /* Seu estilo CSS aqui... */
+    </style>
+</head>
+<body>
+    <header>
+        <img id="logo" src="https://i.gifer.com/TWGG.gif" alt="Logo da Minha Loja Online">
+        <h1>Minha Loja Online - Carrinho</h1>
+    </header>
+    
+    <nav>
+        <div>
+            <a href="#">Home</a>
+            <a href="#">Produtos</a>
+            <a href="#">Contato</a>
+            <a href="carrinho.html">Carrinho</a> <!-- Link para a própria página do carrinho -->
+        </div>
+        <div>
+            <input type="text" placeholder="Buscar produtos...">
+            <button type="button" onclick="buscarProdutos()">Buscar</button>
+        </div>
+    </nav>
+
+    <section>
+        <h2>Itens no Carrinho</h2>
+        <ul id="listaCarrinho"></ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Minha Loja Online. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function exibirItensCarrinho() {
+            var carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            var listaCarrinho = document.getElementById('listaCarrinho');
+            
+            // Limpar a lista antes de adicionar os itens
+            listaCarrinho.innerHTML = '';
+
+            // Adicionar cada item do carrinho à lista
+            carrinho.forEach(function (item) {
+                var li = document.createElement('li');
+                li.textContent = item.nome + ' - R$ ' + item.preco;
+                listaCarrinho.appendChild(li);
+            });
+        }
+
+        // Chamar a função para exibir os itens do carrinho quando a página do carrinho for carregada
+        window.onload = exibirItensCarrinho;
+
+        function buscarProdutos() {
+            // Adicione a lógica de busca de produtos aqui...
+        }
+    </script>
+</body>
+</html>
